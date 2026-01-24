@@ -982,13 +982,25 @@
               >
               <div class="relative h-[300px] sm:h-[360px] md:h-[360px] lg:h-[450px] overflow-hidden">
                 <template x-for="(img, i) in images" :key="i">
-                  <img
+                  <picture
                     x-show="index === i"
                     x-transition.opacity.duration.250ms
-                    :src="`{{ asset('assets/projects') }}/${img}`"
-                    class="absolute inset-0 w-full h-full object-cover"
-                    alt=""
+                    class="absolute inset-0 w-full h-full"
                   >
+                    <!-- webp: แปลงนามสกุลไฟล์เดิมเป็น .webp -->
+                    <source
+                      :srcset="`{{ asset('assets/projects') }}/${img.replace(/\.(jpe?g|png)$/i, '.webp')}`"
+                      type="image/webp"
+                    >
+
+                    <!-- fallback: ใช้ไฟล์เดิม (jpg/png/jpeg) -->
+                    <img
+                      :src="`{{ asset('assets/projects') }}/${img}`"
+                      class="absolute inset-0 w-full h-full object-cover"
+                      alt=""
+                      loading="lazy"
+                    >
+                  </picture>
                 </template>
 
                <!-- overlay (ช่วยให้ลูกศร/จุดอ่านง่ายขึ้น) -->
