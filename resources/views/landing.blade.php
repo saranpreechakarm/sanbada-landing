@@ -269,58 +269,80 @@
   </div>
 </section>
 
-{{-- SEA HERO (full image + centered text) --}}
-<section class="relative bg-black">
-  {{-- Image --}}
+<section class="relative bg-black"
+  x-data="promoHero()"
+  x-init="init($el)"
+>
   <div class="relative h-[520px] sm:h-[620px] lg:h-[720px] overflow-hidden">
+
     <img
       src="{{ asset('assets/hero/beach-2084350_1920.jpg') }}"
       alt="Phuket Sea"
-      class="absolute inset-0 w-full h-full object-cover object-center"
+      class="absolute inset-0 w-full h-full object-cover object-center hero-zoom"
+      loading="lazy"
+      decoding="async"
     />
 
-    {{-- Dark overlay for readability --}}
-    <div class="absolute inset-0 bg-black/30"></div>
+    <!-- overlay: ทำให้ดูแพงขึ้น -->
+    <div class="absolute inset-0 hero-overlay"></div>
 
-    {{-- Location label (bottom-left) --}}
     <div
       class="pointer-events-none absolute left-6 bottom-6
-            text-white/90
-            text-[12px] sm:text-[13px]
+            text-white/90 text-[12px] sm:text-[13px]
             tracking-widest uppercase
             bg-black/40 backdrop-blur-sm
             px-4 py-2 rounded-full border border-white/20"
     >
       Пляж Камала
     </div>
+    <!-- Content -->
+<div class="absolute inset-0 flex items-center justify-center text-center px-6">
+    <div class="max-w-3xl">
 
-    {{-- Content --}}
-    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
-      <div class="max-w-3xl">
-        <h2 class="font-semibold tracking-wide text-white
-                   text-[30px] sm:text-[40px] lg:text-[56px]
-                   leading-tight uppercase">
-          ПОМОЖЕМ НАЙТИ ТО,<br class="hidden sm:block">
-          ЧТО ВЫ ИЩЕТЕ
-        </h2>
+      <h2 class="font-semibold tracking-wide text-red-500
+                text-[18px] sm:text-[26px] lg:text-[35px]
+                leading-tight uppercase">
+        <span
+          class="text-shine text-pop"
+          :class="animTitle ? 'is-anim' : ''"
+          @animationend="onSweepEnd('title', $event)"
+        >
+          ПРЕДЛОЖЕНИЕ МЕСЯЦА!
+        </span>
+      </h2>
 
-        <div class="mt-8">
-          <a
-            href="#projects"
-            class="inline-flex items-center justify-center
-                   h-12 px-10
-                   bg-white text-black/80
-                   border border-white/60
-                   hover:bg-white/90 transition
-                   font-semibold tracking-wide uppercase"
-          >
-            ПОЕХАЛИ!
-          </a>
-        </div>
+      <h2 class="font-semibold tracking-wide text-white
+                text-[18px] sm:text-[26px] lg:text-[35px]
+                leading-tight uppercase">
+        оставьте заявку, получите бесплатную<br class="hidden sm:block">
+        консультацию и рассрочку
+        <span
+          class="text-shine text-pop text-red-500 font-bold text-glow"
+          :class="animZero ? 'is-anim' : ''"
+          @animationend="onSweepEnd('zero', $event)"
+        >
+          0%
+        </span>
+      </h2>
+
+
+      <div class="mt-8">
+        <a
+  href="javascript:void(0)"
+  x-data
+  @click="$dispatch('open-lead')"
+           class="btn-lux btn-sweep inline-flex items-center justify-center
+                  h-12 px-10 bg-white text-black/80 border border-white/60
+                  font-semibold tracking-wide uppercase relative overflow-hidden">
+          ПОЕХАЛИ!
+          <span class="btn-arrow ml-2">→</span>
+        </a>
       </div>
+
     </div>
   </div>
 </section>
+
 
 {{-- ABOUT US --}}
 <section id="about" class="bg-[#f3f3f3] scroll-mt-24">
@@ -374,7 +396,7 @@
 
 {{-- SERVICES / BENEFITS (match screenshot) --}}
 <section id="invest" class="bg-[#f3f3f3] scroll-mt-24">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
 
     {{-- TOP HEAD --}}
     <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
@@ -673,6 +695,7 @@
           'title' => 'BALCONY Naiyang',
           'price' => 'от 5.4 млн БАТ',
           'desc'  => 'Balcony — Naiyang — курортный кондоминиум в тихом районе рядом с пляжем и международным аэропортом Пхукета. Проект сочетает близость к природе с современным комфортом и инвестиционной привлекательностью. Комплекс выполнен в стиле тропического курорта и предлагает зелёные зоны, бассейн и стиль лаунж общественные пространства, созданные для спокойного и расслабленного образа жизни.',
+          'pdf'   => 'assets/projects/pdf/13 The Balcony Naiyang.pdf',
           'images' => [
             'balcony-naiyang/1.jpg',
             'balcony-naiyang/2.jpg',
@@ -691,6 +714,7 @@
           'title' => 'VIBE RESIDENCE Karon',
           'price' => 'от 5.4 млн БАТ',
           'desc'  => 'Vibe Residence — Karon — курортная роскошь всего в 200 метрах от пляжа в самом центре динамичного района Карон. Проект расположен в непосредственной близости от пляжа Карон, парка и самых оживлённых мест Пхукета, предлагая высокий уровень комфорта, удобства и приближённого образа жизни. Удобное транспортное сообщение с Патонгом и центром города.',
+          'pdf'   => 'assets/projects/pdf/19 Vibe Residence Karon.pdf',
           'images' => [
             'vibe-karon/1.jpg',
             'vibe-karon/2.jpg',
@@ -710,6 +734,7 @@
           'price' => 'от 5.13 млн БАТ',
           'desc'  => 'The Halo 1 — Naiyang — курортный кондоминиум, сочетающий приватность, спокойствие и гармонию с природой. Зелёное окружение и продуманные общественные зоны создают атмосферу уединения и отдыха.
 Архитектура с характерными двускатными крышами и элегантным Skin Façade, вдохновлённым наследием Пхукета, объединяет современный дизайн и местный колорит.',
+          'pdf'   => 'assets/projects/pdf/1 HALO 1 Naiyang.pdf',
           'images' => [
             'HALO-Naiyang/1.jpg',
             'HALO-Naiyang/2.png',
@@ -729,6 +754,7 @@
           'price' => 'от 5.4 млн БАТ',
           'desc'  => 'Heritage — Bang-Tao — курортный кондоминиум в престижном районе рядом с Boat Avenue, Porto de Phuket и Laguna Phuket, выполненный в современном стиле с сино-элементами.
 Развитая инфраструктура, близость пляжей Бангтао, Сурин и Лаян (5–10 минут) и удобный доступ к аэропорту Пхукета (около 35 минут) делают проект отличным выбором для жизни и инвестиций.',
+          'pdf'   => 'assets/projects/pdf/2 Heritage Bang-Tao.pdf',
           'images' => [
             'HERITAGE-BangTao/1.jpg',
             'HERITAGE-BangTao/2.jpg',
@@ -748,6 +774,7 @@
           'price' => 'от 6.8 млн БАТ',
           'desc'  => 'Legendary — Bang-Tao — современный жилой проект в престижном районе Бангтао, всего в нескольких минутах от пляжа и рядом с инфраструктурой и комплексом Laguna Phuket.
 Проект сочетает стильные интерьеры и более 35 удобств курортного уровня, включая бассейны, фитнес-центр, клубный дом, коворкинг и детские зоны, предлагая комфортный образ жизни и инвестиционную привлекательность.',
+          'pdf'   => 'assets/projects/pdf/3 Legendary Bang-Tao.pdf',
           'images' => [
             'LEGENDARY-BangTao/1.jpg',
             'LEGENDARY-BangTao/2.jpg',
@@ -767,6 +794,7 @@
           'price' => 'от 3.4 млн БАТ',
           'desc'  => 'Serenity — Naiyang — современный курортный кондоминиум рядом с аэропортом Пхукета и северными пляжами острова. Проект сочетает стильный дизайн, комфорт и удобное расположение.
 Комплекс предлагает развитую инфраструктуру для отдыха: бассейны, фитнес-центр, спа-зоны, онсэн и пространства для досуга. Пляж Найянг находится всего в 5 минутах, а рестораны, магазины и рынок — в шаговой доступности.',
+          'pdf'   => 'assets/projects/pdf/4 Serenity Naiyang.pdf',
           'images' => [
             'SERENITY-Naiyang/1.jpg',
             'SERENITY-Naiyang/2.jpg',
@@ -786,6 +814,7 @@
           'price' => 'от 4.7 млн БАТ',
           'desc'  => 'Modeva — Bang-Tao — стильный тропический проект с морской концепцией, где здания окружены извилистыми бассейнами и зелёным центральным пространством, создающим атмосферу уединённого острова.
 Комплекс предлагает курортную инфраструктуру, включая бассейны, фитнес, онсэн, коворкинг, детские и общественные зоны, и расположен в пешей доступности от пляжа Бангтао, что делает его привлекательным для жизни и инвестиций.',
+          'pdf'   => 'assets/projects/pdf/5 THE MODEVA Bang-Tao.pdf',
           'images' => [
             'MODEVA-BangTao/1.jpg',
             'MODEVA-BangTao/2.jpg',
@@ -805,6 +834,7 @@
           'price' => 'от 4.8 млн БАТ',
           'desc'  => 'Cielo — Rawai — премиальный прибрежный кондоминиум на юге Пхукета, в районе, известном своими живописными пейзажами и впечатляющими закатами. Раваи сочетает активный образ жизни с атмосферой уюта и аутентичного местного колорита.
 Проект гармонично объединяет современную архитектуру и природную красоту побережья, предлагая комфортное проживание и высокий инвестиционный потенциал.',
+          'pdf'   => 'assets/projects/pdf/6 Cielo Rawai.pdf',
           'images' => [
             'CIELO-Rawai/1.jpg',
             'CIELO-Rawai/2.jpg',
@@ -824,6 +854,7 @@
           'price' => 'от 4.3 млн БАТ',
           'desc'  => 'Artrio — Bang-Tao — проект надёжного застройщика в самом центре Бангтао, рядом с Porto de Phuket, Boat Avenue и комплексом Laguna Phuket.
 Проект предлагает современные резиденции с продуманными планировками и подходит как для комфортного проживания, так и для инвестиций. Вся ключевая инфраструктура находится в шаговой доступности, а пляжи Бангтао, Сурин и Лаян — всего в 10 минутах.',
+          'pdf'   => 'assets/projects/pdf/7 Artrio Bang-Tao.pdf',
           'images' => [
             'ARTRIO-BangTao/1.png',
             'ARTRIO-BangTao/2.jpg',
@@ -843,6 +874,7 @@
           'price' => 'от 4.2 млн БАТ',
           'desc'  => 'Katabello — Kata — курортный кондоминиум в центре Каты с развитой инфраструктурой и условиями для проживания с домашними животными.
 Комплекс окружён бассейнами в стиле каналов и предлагает лаунж-зоны, кафе и специализированную pet-friendly инфраструктуру. Удобное расположение делает проект привлекательным как для комфортной жизни, так и для арендных инвестиций.',
+          'pdf'   => 'assets/projects/pdf/8 The Katabello Kata.pdf',
           'images' => [
             'KATABELLO-Kata/1.jpg',
             'KATABELLO-Kata/2.jpg',
@@ -863,6 +895,7 @@
           'desc'  => 'Adora — Rawai — современный тропический проект с акцентом на комфорт, приватность и функциональные планировки.
 Расположен на юге Пхукета, рядом с пляжами Раваи и Най Харн и ключевыми локациями района, что делает проект подходящим как для жизни, так и для инвестиций с хорошим арендным потенциалом.
 Проект идеален для спокойного проживание.',
+          'pdf'   => 'assets/projects/pdf/9 Adora Rawai.pdf',
           'images' => [
             'adora-rawai/1.jpg',
             'adora-rawai/2.jpg',
@@ -882,6 +915,7 @@
           'price' => 'от 2.9 млн БАТ',
           'desc'  => 'Sierra — Bang-Tao — современный жилой проект от надёжного застройщика в центре Ченг Талей, рядом с Porto de Phuket, Boat Avenue и комплексом Laguna Phuket.
 Проект предлагает курортную инфраструктуру, включая бассейн на крыше, фитнес-центр, коворкинг, pet-зону и круглосуточную охрану. Пляжи Бангтао, Сурин и Лаян находятся в 10–15 минутах , а аэропорт Пхукета — в 35 минутах.',
+          'pdf'   => 'assets/projects/pdf/10 Sierra Bang-Tao.pdf',
           'images' => [
             'SIERRA-BangTao/1.png',
             'SIERRA-BangTao/2.jpg',
@@ -901,6 +935,7 @@
           'price' => 'от 29 млн БАТ',
           'desc'  => 'Villa Kirara — Bang-Tao — современный проект вилл с частными бассейнами, расположенный в тихом предгорном районе Ченг Талей, рядом с HeadStart International School, Boat Avenue, Laguna Phuket и пляжами Бангтао, Сурин и Лаян.
 Проект из 37 стильных вилл с частными бассейнами и озеленёнными территориями. Спокойная атмосфера и удобная локация это отличный выбор для семейного отдыха и инвестиций.',
+          'pdf'   => 'assets/projects/pdf/11 Villa Kirara Bang-Tao.pdf',
           'images' => [
             'VILLA-KIRARA-Bang-Tao/1.jpeg',
             'VILLA-KIRARA-Bang-Tao/2.jpeg',
@@ -920,6 +955,7 @@
           'price' => 'от 4.7 млн БАТ',
           'desc'  => 'Coralina — Kamala — современный pet-friendly кондоминиум в престижном районе Камала, всего в 10 минутах от пляжа. Проект подходит как для проживания, так и для инвестиций.
 Комплекс располагает курортной инфраструктурой: бассейнами, фитнес и йога-зонами, спа, детскими и pet-зонами, коворкингом и круглосуточной охраной. Удобное расположение обеспечивает быстрый доступ к центру Камалы, Патонгу и комплексу Laguna Phuket.',
+          'pdf'   => 'assets/projects/pdf/12 Coralina Kamala.pdf',
           'images' => [
             'CORALINA-Kamala/1.jpg',
             'CORALINA-Kamala/2.jpg',
@@ -962,99 +998,141 @@
 
               {{-- CTA (works like old "Получить детали и цены") --}}
               <button
-                class="w-full sm:w-auto mt-6 inline-flex items-center justify-center px-5 py-2.5 bg-[#2da9e0] text-white font-semibold hover:brightness-110 transition"
+                class="btn-lux btn-sweep w-full sm:w-auto mt-6 inline-flex items-center justify-center
+                      px-5 py-2.5 bg-[#2da9e0] text-white font-semibold
+                      hover:brightness-110 transition
+                      relative overflow-hidden"
                 x-data
-                @click="$dispatch('open-lead', { project: @js($p['title']) })"
+                @click="$dispatch('open-lead', { project: @js($p['title']), pdf: @js($p['pdf']) })"
               >
                 подробнее
               </button>
             </div>
 
-            {{-- RIGHT: image slider --}}
-              <div
-                class="md:col-span-3 order-1 md:order-2 relative"
-                x-data="{
-                  images: {{ json_encode($p['images']) }},
-                  index: 0,
-                  next(){ this.index = (this.index + 1) % this.images.length },
-                  prev(){ this.index = (this.index - 1 + this.images.length) % this.images.length }
-                }"
-              >
-              <div class="relative h-[300px] sm:h-[360px] md:h-[360px] lg:h-[450px] overflow-hidden">
-                <template x-for="(img, i) in images" :key="i">
-                  <picture
-                    x-show="index === i"
-                    x-transition.opacity.duration.250ms
-                    class="absolute inset-0 w-full h-full"
-                  >
-                    <!-- webp: แปลงนามสกุลไฟล์เดิมเป็น .webp -->
-                    <source
-                      :srcset="`{{ asset('assets/projects') }}/${img.replace(/\.(jpe?g|png)$/i, '.webp')}`"
-                      type="image/webp"
-                    >
+{{-- RIGHT: image slider --}}
+<div
+  class="md:col-span-3 order-1 md:order-2 relative"
+  x-data="{
+    images: {{ json_encode($p['images']) }},
+    index: 0,
 
-                    <!-- fallback: ใช้ไฟล์เดิม (jpg/png/jpeg) -->
-                    <img
-                      :src="`{{ asset('assets/projects') }}/${img}`"
-                      class="absolute inset-0 w-full h-full object-cover"
-                      alt=""
-                      loading="lazy"
-                    >
-                  </picture>
-                </template>
+    // swipe state
+    startX: 0,
+    startY: 0,
+    isDown: false,
+    minSwipe: 35, // ปรับได้ (ยิ่งน้อยยิ่งไว)
 
-               <!-- overlay (ช่วยให้ลูกศร/จุดอ่านง่ายขึ้น) -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 pointer-events-none"></div>
+    next(){ this.index = (this.index + 1) % this.images.length },
+    prev(){ this.index = (this.index - 1 + this.images.length) % this.images.length },
 
-                <!-- LEFT arrow -->
-                <button
-                  @click="prev()"
-                  class="absolute left-4 top-1/2 -translate-y-1/2
-                        h-11 w-11 rounded-full
-                        bg-white/20 backdrop-blur-md
-                        border border-white/30
-                        text-white
-                        flex items-center justify-center
-                        shadow-lg hover:bg-white/30 transition"
-                  aria-label="Prev"
-                >
-                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
+    onTouchStart(e){
+      this.startX = e.touches[0].clientX;
+      this.startY = e.touches[0].clientY;
+    },
+    onTouchEnd(e){
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
 
-                <!-- RIGHT arrow -->
-                <button
-                  @click="next()"
-                  class="absolute right-4 top-1/2 -translate-y-1/2
-                        h-11 w-11 rounded-full
-                        bg-white/20 backdrop-blur-md
-                        border border-white/30
-                        text-white
-                        flex items-center justify-center
-                        shadow-lg hover:bg-white/30 transition"
-                  aria-label="Next"
-                >
-                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <!-- dots (ไข่ปลา) -->
-                <div class="absolute left-1/2 -translate-x-1/2 bottom-4 flex items-center gap-2">
-                  <template x-for="(img, i) in images" :key="i">
-                    <button
-                      @click="index = i"
-                      class="h-2.5 w-2.5 rounded-full transition
-                            border border-white/40"
-                      :class="index === i ? 'bg-[#2da9e0] scale-110' : 'bg-white/30 hover:bg-white/50'"
-                      aria-label="Go to slide"
-                    ></button>
-                  </template>
-                </div>
+      const dx = endX - this.startX;
+      const dy = endY - this.startY;
 
-            </div>
+      // ถ้าลากแนวตั้งเยอะ ให้ปล่อย scroll หน้าเว็บได้
+      if (Math.abs(dy) > Math.abs(dx)) return;
 
-          </div>
+      if (dx <= -this.minSwipe) this.next(); // ปัดซ้าย = รูปถัดไป
+      if (dx >=  this.minSwipe) this.prev(); // ปัดขวา = รูปก่อนหน้า
+    },
+
+    // optional: mouse drag (desktop)
+    onMouseDown(e){ this.isDown = true; this.startX = e.clientX; },
+    onMouseUp(e){
+      if(!this.isDown) return;
+      this.isDown = false;
+      const dx = e.clientX - this.startX;
+      if (dx <= -this.minSwipe) this.next();
+      if (dx >=  this.minSwipe) this.prev();
+    }
+  }"
+>
+  <div
+    class="relative h-[300px] sm:h-[360px] md:h-[360px] lg:h-[450px] overflow-hidden select-none touch-pan-y"
+    @touchstart.passive="onTouchStart($event)"
+    @touchend="onTouchEnd($event)"
+    @mousedown="onMouseDown($event)"
+    @mouseup="onMouseUp($event)"
+    @mouseleave="isDown=false"
+  >
+    <template x-for="(img, i) in images" :key="i">
+      <picture
+        x-show="index === i"
+        x-transition.opacity.duration.250ms
+        class="absolute inset-0 w-full h-full"
+      >
+        <source
+          :srcset="`{{ asset('assets/projects') }}/${img.replace(/\.(jpe?g|png)$/i, '.webp')}`"
+          type="image/webp"
+        >
+        <img
+          :src="`{{ asset('assets/projects') }}/${img}`"
+          class="absolute inset-0 w-full h-full object-cover"
+          alt=""
+          loading="lazy"
+          draggable="false"
+        >
+      </picture>
+    </template>
+
+    <!-- overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 pointer-events-none"></div>
+
+    <!-- LEFT arrow -->
+    <button
+      @click="prev()"
+      class="absolute left-4 top-1/2 -translate-y-1/2
+            h-11 w-11 rounded-full
+            bg-white/20 backdrop-blur-md
+            border border-white/30
+            text-white
+            flex items-center justify-center
+            shadow-lg hover:bg-white/30 transition"
+      aria-label="Prev"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- RIGHT arrow -->
+    <button
+      @click="next()"
+      class="absolute right-4 top-1/2 -translate-y-1/2
+            h-11 w-11 rounded-full
+            bg-white/20 backdrop-blur-md
+            border border-white/30
+            text-white
+            flex items-center justify-center
+            shadow-lg hover:bg-white/30 transition"
+      aria-label="Next"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- dots -->
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-4 flex items-center gap-2">
+      <template x-for="(img, i) in images" :key="i">
+        <button
+          @click="index = i"
+          class="h-2.5 w-2.5 rounded-full transition border border-white/40"
+          :class="index === i ? 'bg-[#2da9e0] scale-110' : 'bg-white/30 hover:bg-white/50'"
+          aria-label="Go to slide"
+        ></button>
+      </template>
+    </div>
+  </div>
+</div>
+
         </div>
       @endforeach
 
@@ -1081,7 +1159,7 @@
           </div>
           <p class="mt-2 text-white/70 leading-relaxed">
             Phuket Office<br>
-            24/3 Moo 7, Chaofa Road,<br>
+            27/18 Moo 2, Palai,<br>
             T. Chalong, A. Muang Phuket, Phuket
           </p>
         </div>
@@ -1147,7 +1225,6 @@
           </div>
         </div>
       </div>
-
       {{-- RIGHT: MAP (80%) --}}
       <div class="md:col-span-4 flex flex-col">
         <div class="flex-1 w-full
@@ -1157,7 +1234,7 @@
                     lg:min-h-[456px]
                     overflow-hidden rounded-xl border border-white/10">
           <iframe
-            src="https://www.google.com/maps?q=7.840077,98.335495&z=16&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4251.00403404192!2d98.35228497582136!3d7.841843606439243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30502f3d037ab4cd%3A0x7ead3cd5b8f25c69!2sSanbada%20Co.%2CLTD!5e1!3m2!1sth!2sth!4v1769416714833!5m2!1sth!2sth"
             class="w-full h-full border-0"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
@@ -1181,45 +1258,66 @@
 
   </main>
 
-  {{-- MODAL --}}
-  <div
-    x-data="{ open: false }"
-    @open-lead.window="open = true"
-    @keydown.escape.window="open = false"
-    x-show="open"
-    x-cloak
-    class="fixed inset-0 z-50"
-  >
-{{-- overlay --}}
+{{-- MODAL --}}
 <div
-  class="fixed inset-0 z-50 bg-black/70 backdrop-blur-[2px]"
-  @click="open=false"
-></div>
+  x-data="{ open:false, project:null, pdf:null }"
+  @open-lead.window="
+    open = true;
+    project = $event.detail?.project ?? null;
+    pdf = $event.detail?.pdf ?? null;
+  "
+  @keydown.escape.window="open = false"
+  x-cloak
+>
 
-{{-- modal wrapper (centering + safe on mobile) --}}
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-  {{-- modal box --}}
+  {{-- overlay --}}
   <div
-    class="relative w-full max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-2xl"
-    style="box-shadow: 0 20px 80px rgba(0,0,0,.55);"
-    @click.stop
-  >
-    {{-- top bar --}}
-    <div class="flex items-center justify-between px-5 sm:px-8 py-4 border-b border-black/10 bg-white">
-      <div class="text-sm sm:text-base font-semibold text-[#111]">
-        Sanbada Real Estate
-      </div>
+    x-show="open"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-[2px]"
+    @click="open=false"
+  ></div>
 
-      <button
-        class="h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 text-black/60 hover:text-black flex items-center justify-center transition"
-        @click="open=false"
-        aria-label="Close"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
+  {{-- modal wrapper --}}
+  <div
+    x-show="open"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    aria-modal="true"
+    role="dialog"
+  >
+    {{-- modal box --}}
+    <div
+      x-transition:enter="transition ease-out duration-320"
+      x-transition:enter-start="opacity-0 translate-y-6 scale-[0.98]"
+      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+      x-transition:leave-end="opacity-0 translate-y-4 scale-[0.98]"
+      class="relative w-full max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-2xl"
+      style="box-shadow: 0 20px 80px rgba(0,0,0,.55);"
+      @click.stop
+    >
+      {{-- top bar --}}
+      <div class="flex items-center justify-between px-5 sm:px-8 py-4 border-b border-black/10 bg-white">
+        <div class="text-sm sm:text-base font-semibold text-[#111]">
+          Sanbada Real Estate
+        </div>
+
+        <button
+          class="h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 text-black/60 hover:text-black flex items-center justify-center transition"
+          @click="open=false"
+          aria-label="Close"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
 
     {{-- body (limit height + internal scroll) --}}
     <div class="max-h-[85vh] overflow-y-auto">
@@ -1240,6 +1338,11 @@
           <p class="mt-5 font-semibold text-[#111]">
             Мы подготовим для вас:
           </p>
+
+          <div class="mt-6 rounded-xl border border-black/10 bg-white p-4 text-sm text-black/70">
+            Заполните форму — и получите PDF-брошюру проекта
+            <span class="font-semibold" x-text="project ? project : ''"></span>
+          </div>
 
           <ul class="mt-3 space-y-2 text-[#334155]">
             <li class="flex gap-2">
@@ -1266,6 +1369,8 @@
           <form method="POST" action="{{ route('lead.store') }}" class="space-y-4">
             @csrf
             <input type="hidden" name="source" value="website">
+            <input type="hidden" name="project" :value="project">
+            <input type="hidden" name="pdf" :value="pdf">
 
             {{-- WhatsApp --}}
             <div>

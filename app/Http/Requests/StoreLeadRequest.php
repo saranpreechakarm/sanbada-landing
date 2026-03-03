@@ -26,8 +26,12 @@ class StoreLeadRequest extends FormRequest
             'whatsapp_phone'   => ['required','string','max:30'],
             'email'            => ['nullable','email','max:255'],
             'name'             => ['nullable','string','max:255'],
-            'consent'          => ['accepted'], // ต้องติ๊กเท่านั้น
+            'consent'          => ['accepted'],
             'source'           => ['nullable','string','max:50'],
+
+            // ✅ เพิ่ม
+            'project' => ['nullable','string','max:255'],
+            'pdf'     => ['nullable','string','max:500','starts_with:assets/projects/pdf/'],
         ];
     }
 
