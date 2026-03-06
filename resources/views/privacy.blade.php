@@ -8,11 +8,21 @@
 </head>
 
 <body class="bg-[#0b0b0b] text-white overflow-x-hidden">
+  @php
+  $locale = app()->getLocale(); // ru | en
+  $segments = request()->segments();
 
+  // remove locale prefix to keep current path when switching
+  if (in_array($segments[0] ?? '', ['ru','en'])) array_shift($segments);
+  $path = implode('/', $segments);
+
+  $ruUrl = url('/ru' . ($path ? '/' . $path : ''));
+  $enUrl = url('/en' . ($path ? '/' . $path : ''));
+  @endphp
   {{-- HEADER (match site style) --}}
   <header class="sticky top-0 z-40 border-b border-white/10 bg-black/60 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-      <a href="{{ route('home') }}" class="font-semibold tracking-wide">
+      <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="font-semibold tracking-wide">
         <span class="text-white/80">SANBADA</span>
         <span class="text-[#2da9e0]">REAL ESTATE</span>
       </a>
@@ -32,12 +42,12 @@
       </div>
 
       <h1 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">
-        Политика конфиденциальности
+        {{ __('Legal_1') }}
       </h1>
-
+ 
       <p class="mt-4 text-white/65 leading-relaxed">
-        Настоящая Политика конфиденциальности описывает, как <strong class="text-white">Sanbada Real Estate</strong>
-        («мы», «нас», «наш сервис») собирает, использует и защищает персональные данные пользователей сайта.
+       {{ __('Legal_2') }} <strong class="text-white">Sanbada Real Estate</strong>
+      {{ __('Legal_3') }}
       </p>
 
       {{-- CONTENT CARD --}}
@@ -45,82 +55,78 @@
         <div class="p-6 sm:p-8 md:p-10 space-y-8 text-white/80 leading-relaxed">
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">1. Какие данные мы собираем</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_4') }}</h2>
             <p class="mt-2">
-              Мы собираем только те данные, которые вы добровольно предоставляете через формы на сайте, включая:
+              {{ __('Legal_5') }}
             </p>
             <ul class="mt-3 list-disc pl-6 space-y-1 text-white/70">
-              <li>номер WhatsApp (код страны и номер телефона);</li>
-              <li>адрес электронной почты (если указан);</li>
-              <li>имя (если указано);</li>
-              <li>прочая информация, которую вы укажете в сообщении/заявке (если предусмотрено).</li>
+              <li>{{ __('Legal_6') }}</li>
+              <li>{{ __('Legal_7') }}</li>
+              <li>{{ __('Legal_8') }}</li>
+              <li>{{ __('Legal_9') }}</li>
             </ul>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">2. Цели обработки</h2>
-            <p class="mt-2">Мы используем ваши данные для следующих целей:</p>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_10') }}</h2>
+            <p class="mt-2">{{ __('Legal_11') }}</p>
             <ul class="mt-3 list-disc pl-6 space-y-1 text-white/70">
-              <li>связаться с вами по вашему запросу и предоставить подборку объектов недвижимости;</li>
-              <li>предоставить консультацию по покупке/инвестициям/аренде недвижимости на Пхукете;</li>
-              <li>улучшать качество сервиса и коммуникации с клиентами.</li>
+              <li>{{ __('Legal_12') }}</li>
+              <li>{{ __('Legal_13') }}</li>
+              <li>{{ __('Legal_14') }}</li>
             </ul>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">3. Правовое основание</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_15') }}</h2>
             <p class="mt-2 text-white/70">
-              Обработка данных осуществляется на основании вашего согласия (отметка в форме),
-              а также в целях исполнения вашего запроса (обратный звонок/сообщение и подбор вариантов).
+              {{ __('Legal_16') }}
             </p>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">4. Передача третьим лицам</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_17') }}</h2>
             <p class="mt-2 text-white/70">
-              Мы не продаём ваши персональные данные. Доступ к данным может быть предоставлен только:
+              {{ __('Legal_18') }}
             </p>
             <ul class="mt-3 list-disc pl-6 space-y-1 text-white/70">
-              <li>нашим сотрудникам/представителям, отвечающим за обработку заявок;</li>
-              <li>техническим подрядчикам (хостинг/поддержка), исключительно для обеспечения работы сайта;</li>
-              <li>если это требуется законом или по запросу уполномоченных органов.</li>
+              <li>{{ __('Legal_19') }}</li>
+              <li>{{ __('Legal_20') }}</li>
+              <li>{{ __('Legal_21') }}</li>
             </ul>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">5. Срок хранения</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_22') }}</h2>
             <p class="mt-2 text-white/70">
-              Мы храним данные столько, сколько это необходимо для обработки запроса и последующей коммуникации,
-              либо до момента отзыва согласия, если иное не требуется по закону.
+              {{ __('Legal_23') }}
             </p>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">6. Безопасность данных</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_24') }}</h2>
             <p class="mt-2 text-white/70">
-              Мы применяем разумные организационные и технические меры для защиты данных от несанкционированного
-              доступа, изменения или уничтожения.
+              {{ __('Legal_25') }}
             </p>
           </section>
 
           <section>
-            <h2 class="text-xl font-semibold text-[#2da9e0]">7. Ваши права</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_26') }}</h2>
             <p class="mt-2 text-white/70">
-              Вы можете запросить доступ к данным, их исправление или удаление, а также отозвать согласие на обработку.
-              Для этого свяжитесь с нами любым удобным способом.
+              {{ __('Legal_27') }}
             </p>
           </section>
 
           {{-- CONTACT CARD --}}
           <section class="rounded-2xl border border-white/10 bg-black/40 p-6">
-            <h2 class="text-xl font-semibold text-[#2da9e0]">Контакты</h2>
+            <h2 class="text-xl font-semibold text-[#2da9e0]">{{ __('Legal_28') }}</h2>
             <p class="mt-2 text-white/80">
               Sanbada Real Estate<br>
-              Телефон / WhatsApp:
+              {{ __('Legal_29') }}
               <a class="text-[#2da9e0] hover:underline" href="tel:+66653489444">+66 653 489 444</a>
             </p>
             <p class="mt-2 text-white/45 text-sm">
-              Дата обновления: {{ now()->format('d.m.Y') }}
+              {{ __('Legal_30') }} {{ now()->format('d.m.Y') }}
             </p>
           </section>
 
@@ -129,10 +135,10 @@
 
       {{-- BACK --}}
       <div class="mt-10">
-        <a href="{{ route('home') }}"
+        <a href="{{ route('home', ['locale' => app()->getLocale()]) }}"
            class="inline-flex items-center gap-2 text-[#2da9e0] hover:opacity-80 transition">
           <span aria-hidden="true">←</span>
-          Вернуться на главную
+          {{ __('Legal_31') }}
         </a>
       </div>
 
@@ -144,7 +150,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-sm text-white/50 flex flex-col md:flex-row gap-2 justify-between">
       <div>© {{ date('Y') }} Sanbada Real Estate</div>
       <div>
-        <a class="hover:text-white" href="{{ route('privacy') }}">Политика конфиденциальности</a>
+        <a class="hover:text-white" href="{{ route('privacy', ['locale' => app()->getLocale()]) }}">{{ __('Legal_32') }}</a>
       </div>
     </div>
   </footer>

@@ -17,28 +17,38 @@ class LeadController extends Controller
 
         Lead::create($data);
 
-        // ✅ ส่งไปหน้า thankyou พร้อม query file (ถ้ามี)
+        $locale = app()->getLocale();
+
+        // ส่งไปหน้า thankyou พร้อม query file (ถ้ามี)
         $file = ltrim($data['pdf'] ?? '', '/');
 
         if ($file && Str::startsWith($file, 'assets/projects/pdf/')) {
-            return redirect()->route('thankyou', ['file' => $file, 'project' => $data['project'] ?? null]);
+            return redirect()->route('thankyou', [
+                'locale'  => $locale,
+                'file'    => $file,
+                'project' => $data['project'] ?? null,
+            ]);
         }
 
-        return redirect()->route('thankyou');
+        return redirect()->route('thankyou', [
+            'locale' => $locale,
+        ]);
     }
 
-    // ✅ endpoint โหลด pdf
     public function downloadPdf(Request $request)
     {
         $file = ltrim($request->query('file', ''), '/');
 
-        // allow เฉพาะใน assets/projects เท่านั้น
+        // allow เฉพาะใน assets/projects/pdf เท่านั้น
         if (!$file || !Str::startsWith($file, 'assets/projects/pdf/')) {
             abort(404);
         }
 
         $fullPath = public_path($file);
-        if (!file_exists($fullPath)) abort(404);
+
+        if (!file_exists($fullPath)) {
+            abort(404);
+        }
 
         return response()->download($fullPath, basename($fullPath), [
             'Content-Type' => 'application/pdf',

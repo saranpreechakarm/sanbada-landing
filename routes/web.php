@@ -3,16 +3,27 @@
 use App\Http\Controllers\LeadController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'landing')->name('home');
+// เข้าเว็บแล้วไป /ru อัตโนมัติ
+Route::redirect('/', '/ru');
 
-Route::post('/lead', [LeadController::class, 'store'])
-  ->name('lead.store')
-  ->middleware('throttle:20,1');
+// กลุ่ม route ที่มี locale prefix
+Route::group([
+    'prefix' => '{locale}',
+    'where'  => ['locale' => 'ru|en'],
+    'middleware' => ['web'], // SetLocale จะถูกใส่ใน group web จาก Kernel อีกที
+], function () {
 
-Route::view('/privacy', 'privacy')->name('privacy');
+    Route::view('/', 'landing')->name('home');
 
-Route::view('/thank-you', 'thankyou')->name('thankyou');
+    Route::post('/lead', [LeadController::class, 'store'])
+        ->name('lead.store')
+        ->middleware('throttle:20,1');
 
-// ✅ เพิ่มสำหรับโหลด PDF
-Route::get('/download-pdf', [LeadController::class, 'downloadPdf'])
-  ->name('lead.downloadPdf');
+    Route::view('/privacy', 'privacy')->name('privacy');
+
+    Route::view('/thank-you', 'thankyou')->name('thankyou');
+
+    // ✅ โหลด PDF
+    Route::get('/download-pdf', [LeadController::class, 'downloadPdf'])
+        ->name('lead.downloadPdf');
+});
