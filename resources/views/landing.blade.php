@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ru">
 
 <head>
@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sanbada Real Estate</title>
 
-  <link rel="icon" href="{{ asset('logo ขาวดำ.ico') }}">
+  <link rel="icon" href="{{ asset('logo à¸‚à¸²à¸§à¸”à¸³.ico') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
   <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
@@ -94,7 +94,7 @@
             aria-label="Language"
             :aria-expanded="open.toString()">
             <span class="text-lg leading-none">
-              {{ $locale === 'ru' ? '🇷🇺' : '🇬🇧' }}
+              {{ $locale === 'ru' ? 'RU' : 'EN' }}
             </span>
             <span class="text-[13px] font-medium">
               {{ $locale === 'ru' ? 'Русский' : 'English' }}
@@ -114,7 +114,7 @@
             <a href="{{ $ruUrl }}"
               class="flex items-center gap-3 px-4 py-3 text-[14px]
               hover:bg-slate-50 {{ $locale==='ru' ? 'bg-slate-50' : '' }}">
-              <span class="text-lg">🇷🇺</span>
+              <span class="text-lg">RU</span>
               <div class="leading-tight">
                 <div class="text-slate-800 font-medium">Русский</div>
               </div>
@@ -123,7 +123,7 @@
             <a href="{{ $enUrl }}"
               class="flex items-center gap-3 px-4 py-3 text-[14px]
               hover:bg-slate-50 {{ $locale==='en' ? 'bg-slate-50' : '' }}">
-              <span class="text-lg">🇬🇧</span>
+              <span class="text-lg">EN</span>
               <div class="leading-tight">
                 <div class="text-slate-800 font-medium">English</div>
               </div>
@@ -136,7 +136,7 @@
           class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-white/25"
           @click="$dispatch('toggle-mobile-menu')"
           aria-label="Menu">
-          ☰
+          X
         </button>
 
       </div>
@@ -190,10 +190,10 @@
                 aria-label="Language"
                 :aria-expanded="open.toString()">
                 <span class="text-base leading-none">
-                  {{ $locale === 'ru' ? '🇷🇺' : '🇬🇧' }}
+                  {{ $locale === 'ru' ? 'RU' : 'EN' }}
                 </span>
                 <span class="text-[12px] font-medium">
-                  {{ $locale === 'ru' ? 'RU' : 'EN' }}
+                  {{ $locale === 'ru' ? 'Русский' : 'English' }}
                 </span>
                 <svg class="h-4 w-4 opacity-80" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
@@ -210,7 +210,7 @@
                 <a href="{{ $ruUrl }}"
                   class="flex items-center gap-3 px-4 py-3 text-[14px]
                   hover:bg-slate-50 {{ $locale==='ru' ? 'bg-slate-50' : '' }}">
-                  <span class="text-lg">🇷🇺</span>
+                  <span class="text-lg">RU</span>
                   <div class="leading-tight">
                     <div class="text-slate-800 font-medium">Русский</div>
                   </div>
@@ -219,7 +219,7 @@
                 <a href="{{ $enUrl }}"
                   class="flex items-center gap-3 px-4 py-3 text-[14px]
                   hover:bg-slate-50 {{ $locale==='en' ? 'bg-slate-50' : '' }}">
-                  <span class="text-lg">🇬🇧</span>
+                  <span class="text-lg">EN</span>
                   <div class="leading-tight">
                     <div class="text-slate-800 font-medium">English</div>
 
@@ -236,7 +236,7 @@
             class="h-10 w-10 rounded-xl border border-white/15 text-white/80 hover:text-white hover:border-white/25 transition"
             @click="mobileOpen=false"
             aria-label="Close">
-            ✕
+            X
           </button>
         </div>
 
@@ -364,13 +364,13 @@
                 class="
               w-full object-cover
 
-              /* <1291px: ทำให้ดูสวยทุกจอ */
+              /* <1291px: à¸—à¸³à¹ƒà¸«à¹‰à¸”à¸¹à¸ªà¸§à¸¢à¸—à¸¸à¸à¸ˆà¸­ */
               max-[1290px]:aspect-[16/11]
               max-[1290px]:h-auto
               max-[1290px]:object-[70%_55%]
               max-[1290px]:rounded-2xl
 
-              /* >=1291px: ใช้แบบเดิม (ที่บังบอกโอเคแล้ว) */
+              /* >=1291px: à¹ƒà¸Šà¹‰à¹à¸šà¸šà¹€à¸”à¸´à¸¡ (à¸—à¸µà¹ˆà¸šà¸±à¸‡à¸šà¸­à¸à¹‚à¸­à¹€à¸„à¹à¸¥à¹‰à¸§) */
               min-[1291px]:h-[560px]
               min-[1291px]:rounded-none
             " />
@@ -404,7 +404,7 @@
           loading="lazy"
           decoding="async" />
 
-        <!-- overlay: ทำให้ดูแพงขึ้น -->
+        <!-- overlay: à¸—à¸³à¹ƒà¸«à¹‰à¸”à¸¹à¹à¸žà¸‡à¸‚à¸¶à¹‰à¸™ -->
         <div class="absolute inset-0 hero-overlay"></div>
 
         <div
@@ -459,7 +459,7 @@
                   h-12 px-10 bg-white text-black/80 border border-white/60
                   font-semibold tracking-wide uppercase relative overflow-hidden">
                 {{ __('button_go') }}
-                <span class="btn-arrow ml-2">→</span>
+                <span class="btn-arrow ml-2">â†’</span>
               </a>
             </div>
 
@@ -507,6 +507,49 @@
       </div>
     </section>
 
+
+    {{-- PROPERTY GALLERY --}}
+    <section class="bg-[#f3f3f3]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-10">
+        <div class="flex items-end justify-between gap-6 mb-8">
+          <div>
+            <div class="text-[12px] uppercase tracking-[0.28em] text-[#8a8f98] mb-3">
+              {{ $locale === 'ru' ? 'Подборка' : 'Collection' }}
+            </div>
+            <h2 class="text-[34px] md:text-[40px] font-bold tracking-widest uppercase text-[#2f343a]">
+              {{ $locale === 'ru' ? 'Фотогалерея' : 'OWNERSHIP TRANSFER' }}
+            </h2>
+          </div>
+
+          <p class="hidden md:block max-w-xl text-[15px] leading-7 text-[#6b7280]">
+            {{ $locale === 'ru'
+                ? 'Фотографии успешной передачи права собственности нашим клиентам.'
+                : 'A collection of successful property ownership transfers.' }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/IMG_6140.webp') }}" alt="Sanbada property image 1" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/IMG_7704.webp') }}" alt="Sanbada property image 2" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/IMG_7794.webp') }}" alt="Sanbada property image 3" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/IMG_7859.webp') }}" alt="Sanbada property image 4" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/IMG_8211.webp') }}" alt="Sanbada property image 5" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+          <div class="overflow-hidden rounded-[6px] bg-white shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+            <img src="{{ asset('img/S__7086088_0.webp') }}" alt="Sanbada property image 6" class="w-full h-[260px] object-cover hover:scale-[1.03] transition duration-500" />
+          </div>
+        </div>
+      </div>
+    </section>
     {{-- SERVICES / BENEFITS (match screenshot) --}}
     <section id="invest" class="bg-[#f3f3f3] scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
@@ -667,7 +710,7 @@
 
             <div class="text-right">
               <div class="font-bold text-[40px] tracking-tight">
-                <span class="block font-['Bicubik'] text-[#2da9e0]">13–16%</span>
+                <span class="block font-['Bicubik'] text-[#2da9e0]">13â€“16%</span>
                 <span class="block font-['Bicubik'] text-[#2f343a] uppercase">{{ __('INVESTMENT_14') }}</span>
               </div>
             </div>
@@ -1114,7 +1157,7 @@
     startX: 0,
     startY: 0,
     isDown: false,
-    minSwipe: 35, // ปรับได้ (ยิ่งน้อยยิ่งไว)
+    minSwipe: 35, // à¸›à¸£à¸±à¸šà¹„à¸”à¹‰ (à¸¢à¸´à¹ˆà¸‡à¸™à¹‰à¸­à¸¢à¸¢à¸´à¹ˆà¸‡à¹„à¸§)
 
     next(){ this.index = (this.index + 1) % this.images.length },
     prev(){ this.index = (this.index - 1 + this.images.length) % this.images.length },
@@ -1130,11 +1173,11 @@
       const dx = endX - this.startX;
       const dy = endY - this.startY;
 
-      // ถ้าลากแนวตั้งเยอะ ให้ปล่อย scroll หน้าเว็บได้
+      // à¸–à¹‰à¸²à¸¥à¸²à¸à¹à¸™à¸§à¸•à¸±à¹‰à¸‡à¹€à¸¢à¸­à¸° à¹ƒà¸«à¹‰à¸›à¸¥à¹ˆà¸­à¸¢ scroll à¸«à¸™à¹‰à¸²à¹€à¸§à¹‡à¸šà¹„à¸”à¹‰
       if (Math.abs(dy) > Math.abs(dx)) return;
 
-      if (dx <= -this.minSwipe) this.next(); // ปัดซ้าย = รูปถัดไป
-      if (dx >=  this.minSwipe) this.prev(); // ปัดขวา = รูปก่อนหน้า
+      if (dx <= -this.minSwipe) this.next(); // à¸›à¸±à¸”à¸‹à¹‰à¸²à¸¢ = à¸£à¸¹à¸›à¸–à¸±à¸”à¹„à¸›
+      if (dx >=  this.minSwipe) this.prev(); // à¸›à¸±à¸”à¸‚à¸§à¸² = à¸£à¸¹à¸›à¸à¹ˆà¸­à¸™à¸«à¸™à¹‰à¸²
     },
 
     // optional: mouse drag (desktop)
@@ -1574,3 +1617,4 @@
 </body>
 
 </html>
+
