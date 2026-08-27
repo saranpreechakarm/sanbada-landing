@@ -75,4 +75,20 @@ window.promoHero = () => ({
   },
 });
 
+const viewportAnimations = document.querySelectorAll('.hero-zoom, .btn-sweep');
+
+if ('IntersectionObserver' in window) {
+  const motionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-in-view', entry.isIntersecting);
+    });
+  }, {
+    rootMargin: '150px 0px',
+    threshold: 0.01,
+  });
+
+  viewportAnimations.forEach((element) => motionObserver.observe(element));
+} else {
+  viewportAnimations.forEach((element) => element.classList.add('is-in-view'));
+}
 Alpine.start();
