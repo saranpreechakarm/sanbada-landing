@@ -3,6 +3,8 @@
 use App\Http\Controllers\LeadController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/line-crm.php';
+
 // เข้าเว็บแล้วไป /ru อัตโนมัติ
 Route::redirect('/', '/ru');
 
