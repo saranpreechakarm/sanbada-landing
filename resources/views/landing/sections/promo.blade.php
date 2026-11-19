@@ -23,7 +23,7 @@
         </div>
         <!-- Content -->
         <div class="absolute inset-0 flex items-center justify-center text-center px-6">
-          <div class="max-w-3xl">
+          <div class="site-promo-copy max-w-3xl">
 
             <h2 class="font-semibold tracking-wide text-red-500
                 text-[18px] sm:text-[26px] lg:text-[35px]
@@ -71,4 +71,5 @@
 
           </div>
         </div>
+      </div>
     </section>

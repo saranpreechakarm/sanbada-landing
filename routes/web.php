@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/line-crm.php';
+require __DIR__.'/content-admin.php';
+require __DIR__.'/seo.php';
 
 // เข้าเว็บแล้วไป /ru อัตโนมัติ
 Route::redirect('/', '/ru');
@@ -15,11 +18,11 @@ Route::group([
     'middleware' => ['web'], // SetLocale จะถูกใส่ใน group web จาก Kernel อีกที
 ], function () {
 
-    Route::view('/', 'landing')->name('home');
+    Route::get('/', LandingController::class)->name('home');
 
     Route::post('/lead', [LeadController::class, 'store'])
         ->name('lead.store')
-        ->middleware('throttle:20,1');
+        ->middleware([\App\Http\Middleware\LimitLeadPayload::class, 'throttle:lead-submissions']);
 
     Route::view('/privacy', 'privacy')->name('privacy');
 

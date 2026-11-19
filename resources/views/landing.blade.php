@@ -1,47 +1,25 @@
-﻿<!doctype html>
-<html lang="ru">
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sanbada Real Estate</title>
+  @include('seo.head')
+
 
   <link rel="icon" href="{{ asset('logo ขาวดำ.ico') }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
   <style>[x-cloak] { display: none !important; }</style>
 
   @vite(['resources/css/app.css','resources/js/app.js'])
+  <link rel="stylesheet" href="{{ asset('css/content-catalog.css') }}">
 
-  <!-- Marquiz script start -->
-  <script>
-    (function(w, d, s, o) {
-      var j = d.createElement(s);
-      j.async = true;
-      j.src = '//script.marquiz.ru/v2.js';
-      j.onload = function() {
-        if (document.readyState !== 'loading') Marquiz.init(o);
-        else document.addEventListener("DOMContentLoaded", function() {
-          Marquiz.init(o);
-        });
-      };
-      d.head.insertBefore(j, d.head.firstElementChild);
-    })(window, document, 'script', {
-      host: '//quiz.marquiz.ru',
-      region: 'ru',
-      id: '694f90aa56ae670019803ad9',
-      autoOpen: false,
-      autoOpenFreq: 'once',
-      openOnExit: false,
-      disableOnMobile: false
-    });
-  </script>
-  <!-- Marquiz script end -->
+
+<link rel="stylesheet" href="{{ asset('css/marketing-site.css') }}">
+@include('site.marquiz-head')
 </head>
 
-<body class="bg-[#efefef] text-black">
+<body class="sanbada-site">
 
   {{-- NAVBAR --}}
   @php
@@ -56,7 +34,7 @@
   $enUrl = url('/en' . ($path ? '/' . $path : ''));
   @endphp
 
-  <header class="sticky top-0 z-40 bg-[#2f343a] border-b border-black/30"
+  <header class="site-header sticky top-0 z-40 bg-[#2f343a] border-b border-black/30"
     x-data="{ mobileOpen:false }"
     @toggle-mobile-menu.window="mobileOpen = !mobileOpen"
     @keydown.escape.window="mobileOpen=false"
@@ -74,18 +52,19 @@
       </a>
 
       {{-- Desktop menu --}}
-      <nav class="hidden md:flex items-center gap-10 text-[12px] tracking-[.20em] uppercase text-white/80">
-        <a href="#about" class="scroll-mt-20 hover:text-white transition">{{ __('about us') }}</a>
-        <a href="#invest" class="scroll-mt-20 hover:text-white transition">{{ __('investments') }}</a>
-        <a href="#projects" class="scroll-mt-20 hover:text-white transition">{{ __('projects') }}</a>
-        <a href="#contacts" class="scroll-mt-20 hover:text-white transition">{{ __('contacts') }}</a>
+      <nav class="hidden xl:flex items-center gap-10 text-[12px] tracking-[.20em] uppercase text-white/80">
+        <a href="#projects" class="scroll-mt-20 hover:text-white transition">{{ (app()->getLocale() === 'ru' ? 'Проекты' : 'Properties') }}</a>
+        @if($videos->isNotEmpty())<a href="#videos" class="scroll-mt-20 hover:text-white transition">{{ app()->getLocale() === 'ru' ? 'Видео' : 'Videos' }}</a>@endif
+        <a href="#about" class="scroll-mt-20 hover:text-white transition">{{ (app()->getLocale() === 'ru' ? 'О нас' : 'About us') }}</a>
+        <a href="#invest2" class="scroll-mt-20 hover:text-white transition">{{ (app()->getLocale() === 'ru' ? 'Инвестиции' : 'Investments') }}</a>
+        <a href="#office" class="scroll-mt-20 hover:text-white transition">{{ (app()->getLocale() === 'ru' ? 'Контакты' : 'Contacts') }}</a>
       </nav>
 
       {{-- Right actions: language switch + mobile button --}}
       <div class="flex items-center gap-3">
 
         {{-- Language dropdown (desktop) --}}
-        <div class="hidden md:block relative"
+        <div class="hidden xl:block relative"
           x-data="{ open:false }"
           @keydown.escape.window="open=false">
 
@@ -97,7 +76,7 @@
             aria-label="Language"
             :aria-expanded="open.toString()">
             <span class="text-lg leading-none">
-              {{ $locale === 'ru' ? '🇷🇺' : '🇬🇧' }}
+              {{ $locale === 'ru' ? 'RU' : 'EN' }}
             </span>
             <span class="text-[13px] font-medium">
               {{ $locale === 'ru' ? 'Русский' : 'English' }}
@@ -117,7 +96,7 @@
             <a href="{{ $ruUrl }}"
               class="flex items-center gap-3 px-4 py-3 text-[14px]
               hover:bg-slate-50 {{ $locale==='ru' ? 'bg-slate-50' : '' }}">
-              <span class="text-lg">🇷🇺</span>
+              <span class="text-lg">RU</span>
               <div class="leading-tight">
                 <div class="text-slate-800 font-medium">Русский</div>
               </div>
@@ -126,7 +105,7 @@
             <a href="{{ $enUrl }}"
               class="flex items-center gap-3 px-4 py-3 text-[14px]
               hover:bg-slate-50 {{ $locale==='en' ? 'bg-slate-50' : '' }}">
-              <span class="text-lg">🇬🇧</span>
+              <span class="text-lg">EN</span>
               <div class="leading-tight">
                 <div class="text-slate-800 font-medium">English</div>
               </div>
@@ -136,14 +115,14 @@
 
 {{-- Mobile button --}}
         <button
-          class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-white/25"
+          class="xl:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-white/15 text-white/80 hover:text-white hover:border-white/25"
           @click="$dispatch('toggle-mobile-menu')"
           aria-label="Menu">
-          ☰
+          @include('site.icon', ['name' => 'menu'])
         </button>
 
     {{-- MOBILE DRAWER --}}
-    <div class="md:hidden">
+    <div class="xl:hidden">
       {{-- Backdrop --}}
       <div
         x-show="mobileOpen"
@@ -162,10 +141,10 @@
         x-transition:leave-start="translate-x-0"
         x-transition:leave-end="translate-x-full"
         x-cloak
-        class="fixed top-0 right-0 z-50 h-full w-[86%] max-w-sm
+        class="mobile-menu-panel fixed top-0 right-0 z-50 h-full w-[86%] max-w-sm
              bg-[#2b3036] border-l border-white/10 shadow-2xl">
         {{-- Header in drawer --}}
-        <div class="h-16 px-6 flex items-center justify-between border-b border-white/10">
+        <div class="mobile-menu-heading h-16 px-6 flex items-center justify-between border-b border-white/10">
           <div class="flex items-center gap-3">
 
             {{-- Brand --}}
@@ -191,7 +170,7 @@
                 aria-label="Language"
                 :aria-expanded="open.toString()">
                 <span class="text-base leading-none">
-                  {{ $locale === 'ru' ? '🇷🇺' : '🇬🇧' }}
+                  {{ $locale === 'ru' ? 'RU' : 'EN' }}
                 </span>
                 <span class="text-[12px] font-medium">
                   {{ $locale === 'ru' ? 'RU' : 'EN' }}
@@ -211,7 +190,7 @@
                 <a href="{{ $ruUrl }}"
                   class="flex items-center gap-3 px-4 py-3 text-[14px]
                   hover:bg-slate-50 {{ $locale==='ru' ? 'bg-slate-50' : '' }}">
-                  <span class="text-lg">🇷🇺</span>
+                  <span class="text-lg">RU</span>
                   <div class="leading-tight">
                     <div class="text-slate-800 font-medium">Русский</div>
                   </div>
@@ -220,7 +199,7 @@
                 <a href="{{ $enUrl }}"
                   class="flex items-center gap-3 px-4 py-3 text-[14px]
                   hover:bg-slate-50 {{ $locale==='en' ? 'bg-slate-50' : '' }}">
-                  <span class="text-lg">🇬🇧</span>
+                  <span class="text-lg">EN</span>
                   <div class="leading-tight">
                     <div class="text-slate-800 font-medium">English</div>
 
@@ -237,7 +216,7 @@
             class="h-10 w-10 rounded-xl border border-white/15 text-white/80 hover:text-white hover:border-white/25 transition"
             @click="mobileOpen=false"
             aria-label="Close">
-            ✕
+            @include('site.icon', ['name' => 'x'])
           </button>
         </div>
 
@@ -252,16 +231,16 @@
             document.querySelector('#about')?.scrollIntoView({behavior:'smooth', block:'start'});
           "
             class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">
-            {{ __('about us') }}
+            {{ (app()->getLocale() === 'ru' ? 'О нас' : 'About us') }}
           </a>
 
-          <a href="#invest"
+          <a href="#invest2"
             @click.prevent="
             mobileOpen=false;
-            document.querySelector('#invest')?.scrollIntoView({behavior:'smooth', block:'start'});
+            document.querySelector('#invest2')?.scrollIntoView({behavior:'smooth', block:'start'});
           "
             class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">
-            {{ __('investments') }}
+            {{ (app()->getLocale() === 'ru' ? 'Инвестиции' : 'Investments') }}
           </a>
 
           <a href="#projects"
@@ -270,16 +249,22 @@
             document.querySelector('#projects')?.scrollIntoView({behavior:'smooth', block:'start'});
           "
             class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">
-            {{ __('projects') }}
+            {{ (app()->getLocale() === 'ru' ? 'Проекты' : 'Properties') }}
           </a>
 
-          <a href="#contacts"
+          @if($newProjects->isNotEmpty())
+          <a href="#new-projects" @click="mobileOpen=false" class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">{{ __('content.new_projects') }}</a>
+          @endif
+          @if($videos->isNotEmpty())
+          <a href="#videos" @click="mobileOpen=false" class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">{{ app()->getLocale() === 'ru' ? 'Видео' : 'Videos' }}</a>
+          @endif
+          <a href="#office"
             @click.prevent="
             mobileOpen=false;
-            document.querySelector('#contacts')?.scrollIntoView({behavior:'smooth', block:'start'});
+            document.querySelector('#office')?.scrollIntoView({behavior:'smooth', block:'start'});
           "
             class="block py-4 border-b border-white/10 text-white/85 hover:text-white transition">
-            {{ __('contacts') }}
+            {{ (app()->getLocale() === 'ru' ? 'Контакты' : 'Contacts') }}
           </a>
 
 
@@ -301,249 +286,36 @@
   </header>
 
   {{-- MAIN --}}
-  <main class="overflow-x-hidden">
-    @include('landing.sections.hero')
-    @include('landing.sections.ownership-transfer')
-    @include('landing.sections.promo')
-    @include('landing.sections.about')
-    @include('landing.sections.submanee-property')
-    @include('landing.sections.services')
-    @include('landing.sections.investment')
-    @include('landing.sections.advantages')
-    @include('landing.sections.projects')
-    @include('landing.sections.contact')
-
-
+  @php($ru = $locale === 'ru')
+  <main class="overflow-x-hidden site-main">
+    @include('site.hero')
+    @include('site.trust')
+    @include('site.new-projects')
+    @include('site.projects')
+    @include('site.promo')
+    @include('site.videos')
+    @include('site.ownership-transfer')
+    @include('site.team')
+    @include('site.services')
+    @include('site.submanee')
+    @include('site.investment')
+    @include('site.advantages')
+    @include('site.faq')
+    @include('site.contact')
   </main>
 
-  {{-- MODAL --}}
-  <div
-    x-data="{ open:false, project:null, pdf:null }"
-    @open-lead.window="
-    open = true;
-    project = $event.detail?.project ?? null;
-    pdf = $event.detail?.pdf ?? null;
-  "
-    @keydown.escape.window="open = false"
-    x-cloak>
-
-    {{-- overlay --}}
-    <div
-      x-show="open"
-      x-transition:enter="transition ease-out duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="transition ease-in duration-200"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-[2px]"
-      @click="open=false"></div>
-
-    {{-- modal wrapper --}}
-    <div
-      x-show="open"
-      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-      aria-modal="true"
-      role="dialog">
-      {{-- modal box --}}
-      <div
-        x-transition:enter="transition ease-out duration-320"
-        x-transition:enter-start="opacity-0 translate-y-6 scale-[0.98]"
-        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-        x-transition:leave-end="opacity-0 translate-y-4 scale-[0.98]"
-        class="relative w-full max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-2xl"
-        style="box-shadow: 0 20px 80px rgba(0,0,0,.55);"
-        @click.stop>
-        {{-- top bar --}}
-        <div class="flex items-center justify-between px-5 sm:px-8 py-4 border-b border-black/10 bg-white">
-          <div class="text-sm sm:text-base font-semibold text-[#111]">
-            Sanbada Real Estate
-          </div>
-
-          <button
-            class="h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 text-black/60 hover:text-black flex items-center justify-center transition"
-            @click="open=false"
-            aria-label="Close">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-            </svg>
-          </button>
-        </div>
-
-        {{-- body (limit height + internal scroll) --}}
-        <div class="max-h-[85vh] overflow-y-auto">
-          <div class="grid md:grid-cols-2">
-
-            {{-- left content --}}
-            <div class="p-6 sm:p-8 md:p-10 bg-[#f6f7f9]">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase text-[#2da9e0]">
-                <span class="h-2 w-2 rounded-full bg-[#2da9e0]"></span>
-                {{ __('modal_1') }}
-              </div>
-
-              <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold leading-tight text-[#111]">
-                {{ __('modal_2') }}
-              </h2>
-
-              <p class="mt-5 font-semibold text-[#111]">
-                {{ __('modal_3') }}
-              </p>
-
-              <div class="mt-6 rounded-xl border border-black/10 bg-white p-4 text-sm text-black/70">
-                {{ __('modal_4') }}
-                <span class="font-semibold" x-text="project ? project : ''"></span>
-              </div>
-
-              <ul class="mt-3 space-y-2 text-[#334155]">
-                <li class="flex gap-2">
-                  <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-[#2da9e0]"></span>
-                  <span>{{ __('modal_5') }}</span>
-                </li>
-                <li class="flex gap-2">
-                  <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-[#2da9e0]"></span>
-                  <span>{{ __('modal_6') }}</span>
-                </li>
-                <li class="flex gap-2">
-                  <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-[#2da9e0]"></span>
-                  <span>{{ __('modal_7') }}</span>
-                </li>
-              </ul>
-
-              <div class="mt-6 rounded-xl border border-black/10 bg-white p-4 text-sm text-black/60">
-                {{ __('modal_8') }}
-              </div>
-            </div>
-
-            {{-- right form --}}
-            <div class="p-6 sm:p-8 md:p-10">
-              <form method="POST" action="{{ route('lead.store', app()->getLocale()) }}" class="space-y-4">
-                @csrf
-                <input type="hidden" name="source" value="website">
-                <input type="hidden" name="project" :value="project">
-                <input type="hidden" name="pdf" :value="pdf">
-
-                {{-- WhatsApp --}}
-                <div>
-                  <label class="text-xs font-semibold tracking-wide text-black/60 uppercase">
-                    {{ __('modal_9') }}
-                  </label>
-
-                  <div class="mt-2 grid grid-cols-[110px_1fr] gap-2">
-                    <select
-                      name="whatsapp_country"
-                      class="h-12 rounded-xl border border-black/15 bg-white px-3 outline-none focus:border-[#2da9e0] focus:ring-4 focus:ring-[#2da9e0]/15">
-                      <option value="+66">+66</option>
-                      <option value="+7">+7</option>
-                      <option value="+48">+48</option>
-                      <option value="+1">+1</option>
-                    </select>
-
-                    <input
-                      name="whatsapp_phone"
-                      required
-                      inputmode="tel"
-                      placeholder="{{ __('modal_16') }}"
-                      class="h-12 rounded-xl border border-black/15 px-3 outline-none focus:border-[#2da9e0] focus:ring-4 focus:ring-[#2da9e0]/15">
-                  </div>
-
-                  @error('whatsapp_phone')
-                  <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
-                  @enderror
-                </div>
-
-                {{-- Email --}}
-                <div>
-                  <label class="text-xs font-semibold tracking-wide text-black/60 uppercase">
-                    {{ __('modal_10') }}
-                  </label>
-
-                  <input
-                    name="email"
-                    type="email"
-                    placeholder="mail@example.com"
-                    class="mt-2 h-12 w-full rounded-xl border border-black/15 px-3 outline-none focus:border-[#2da9e0] focus:ring-4 focus:ring-[#2da9e0]/15">
-
-                  @error('email')
-                  <div class="text-sm text-red-600 mt-1">{{ $message }}</div>
-                  @enderror
-                </div>
-
-                {{-- Name --}}
-                <div>
-                  <label class="text-xs font-semibold tracking-wide text-black/60 uppercase">
-                    {{ __('modal_11') }}
-                  </label>
-
-                  <input
-                    name="name"
-                    placeholder="{{ __('modal_17') }}"
-                    class="mt-2 h-12 w-full rounded-xl border border-black/15 px-3 outline-none focus:border-[#2da9e0] focus:ring-4 focus:ring-[#2da9e0]/15">
-                </div>
-
-                {{-- Submit --}}
-                <button
-                  class="mt-2 h-12 w-full rounded-full bg-[#2da9e0] text-white font-semibold hover:brightness-110 transition">
-                  {{ __('modal_12') }}
-                </button>
-
-                {{-- consent --}}
-                <label class="flex gap-3 items-start text-sm text-black/60">
-                  <input
-                    name="consent"
-                    type="checkbox"
-                    value="1"
-                    required
-                    class="mt-1 h-4 w-4 rounded border-black/20 text-[#2da9e0] focus:ring-[#2da9e0]/30">
-                  <span>
-                    {{ __('modal_13') }}
-                    <a class="text-[#2da9e0] underline hover:opacity-80" href="{{ route('privacy', app()->getLocale()) }}">
-                      {{ __('modal_14') }}
-                    </a>
-                  </span>
-                </label>
-
-                @error('consent')
-                <div class="text-sm text-red-600">{{ $message }}</div>
-                @enderror
-              </form>
-
-              <div class="mt-6 text-xs text-black/40">
-                {{ __('modal_15') }}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
+  @include('site.dialog')
+  @include('landing.partials.video-dialog')
+  @include('site.marquiz-widget')
 
 
-    <!-- Marquiz Widget Code (put before </body>) -->
-    <script>
-      (function(t, p) {
-        window.Marquiz ?
-          Marquiz.add([t, p]) :
-          document.addEventListener('marquizLoaded', function() {
-            Marquiz.add([t, p])
-          })
-      })('Widget', {
-        id: '694f90aa56ae670019803ad9',
-        position: 'right',
-        delay: 3,
-        disableOnMobile: false,
-        disableIfClosed: false,
-        gradientEnabled: true,
-        gradientColor: '#303537',
-        gradientIntensity: 40,
-        titleColor: '#ffffff',
-        hiddenArrowOnMobile: false,
-        autoOpen: 3
-      });
-    </script>
 
 </body>
 
 </html>
+
+
+
+
+
 

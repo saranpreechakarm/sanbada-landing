@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="ru">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Политика конфиденциальности — Sanbada Real Estate</title>
+  <meta name="robots" content="noindex, nofollow">
   @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
@@ -21,14 +22,14 @@
   @endphp
   {{-- HEADER (match site style) --}}
   <header class="sticky top-0 z-40 border-b border-white/10 bg-black/60 backdrop-blur">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap gap-3 items-center justify-between">
       <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="font-semibold tracking-wide">
         <span class="text-white/80">SANBADA</span>
         <span class="text-[#2da9e0]">REAL ESTATE</span>
       </a>
 
-      <a href="tel:+66653489444" class="text-white/60 hover:text-white transition">
-        +66 653 489 444
+      <a href="tel:{{ config('contact.people.0.phone') }}" class="text-white/60 hover:text-white transition">
+        {{ config('contact.people.0.display') }} ({{ config('contact.people.0.name') }})
       </a>
     </div>
   </header>
@@ -123,8 +124,8 @@
             <p class="mt-2 text-white/80">
               Sanbada Real Estate<br>
               {{ __('Legal_29') }}
-              <a class="text-[#2da9e0] hover:underline" href="tel:+66653489444">+66 653 489 444</a>
             </p>
+            @include('landing.partials.contact-phones', ['phoneLinkClass' => 'text-[#2da9e0] hover:underline'])
             <p class="mt-2 text-white/45 text-sm">
               {{ __('Legal_30') }} {{ now()->format('d.m.Y') }}
             </p>

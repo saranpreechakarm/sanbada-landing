@@ -331,5 +331,25 @@
         'vibe-karon/10.jpg',
         ],
         ],
+
+        [
+        'badge_key' => 'projects.badge_1_2_bed', 
+        'title' => 'BRISA PATONG',
+        'price_key' => 'projects.price_brisa_patong',
+        'desc_key' => 'projects.desc_brisa_patong',
+        'pdf' => 'assets/projects/pdf/24 Brisa Patong.pdf',
+        'images' => [
+        'BRISA-PATONG/1.jpg',
+        'BRISA-PATONG/2.jpg',
+        'BRISA-PATONG/3.jpg',
+        'BRISA-PATONG/4.jpg',
+        'BRISA-PATONG/5.jpg',
+        'BRISA-PATONG/6.jpg',
+        'BRISA-PATONG/7.jpg',
+        'BRISA-PATONG/8.jpg',
+        'BRISA-PATONG/9.jpg',
+        'BRISA-PATONG/10.jpg',
+        ],
+        ],
         ];
         @endphp

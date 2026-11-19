@@ -2,7 +2,7 @@
     <section class="bg-[#efefef]">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
 
-        <h2 class="text-[#2f343a] font-bold uppercase tracking-wider text-[28px] leading-tight">
+        <h2 class="site-investor-heading text-[#2f343a] font-bold uppercase tracking-wider text-[28px] leading-tight">
           {{ __('EXCLUSIVE_1') }}<br>
           {{ __('EXCLUSIVE_2') }}
         </h2>

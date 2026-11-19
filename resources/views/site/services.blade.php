@@ -1,0 +1,8 @@
+<section id="services" class="mp-section mp-services"><div class="mp-container">
+    <div class="mp-services-heading"><div><p class="mp-eyebrow">{{ $ru ? 'Всё для вас' : 'Everything for you' }}</p><h2>{{ $ru ? 'Ваш дом вдали от дома' : 'Your home away from home' }}</h2><p class="mp-body">{{ $ru ? 'От встречи в аэропорту до сопровождения покупки — помогаем на каждом этапе.' : 'From airport pickup to purchase support — our team helps throughout your journey.' }}</p></div><div class="mp-portfolio-count"><strong>20+</strong><span>{{ $ru ? 'проектов для вас' : 'projects for you' }}</span></div></div>
+    <div class="mp-service-grid">
+        @foreach($ru ? [['car.png','Трансфер','Заберём вас из аэропорта и отвезём в отель. Организуем транспорт из отеля для просмотра недвижимости.'],['hand.png','Юридическое сопровождение','Юридические консультации, подготовка документов и сопровождение на всех этапах сделки.'],['mondy.png','Выгодное предложение','Подберём предложение под ваши пожелания и поможем сравнить доступные варианты.']] : [['car.png','Transfer','We will pick you up from the airport and take you to your hotel, and arrange transportation from your hotel for property viewings.'],['hand.png','Legal support','Legal consultations, document preparation, and full support at every stage of the transaction.'],['mondy.png','Value','We will find the best offer tailored specifically for you.']] as [$image,$title,$description])
+            <article><img src="{{ asset('assets/icon/'.$image) }}" alt="" width="96" height="96" loading="lazy"><h3>{{ $title }}</h3><p>{{ $description }}</p></article>
+        @endforeach
+    </div>
+</div></section>

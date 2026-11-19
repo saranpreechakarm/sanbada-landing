@@ -10,7 +10,7 @@
               Welcome to Thailand
             </div>
 
-            <h1 class="leading-[0.95]
+            <h1 class="site-hero-heading leading-[0.95]
                    text-[48px] sm:text-[64px] lg:text-[113px]
                    tracking-tight">
               {{-- SANBADA (normal color) --}}

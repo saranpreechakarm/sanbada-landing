@@ -1,0 +1,25 @@
+@php($shortlistAreas = $projects->map(fn ($project) => $project->catalogArea())->filter()->unique()->sort()->values())
+<section id="contacts" class="mp-section mp-contact" x-data="{ purpose: @js(old('purpose', 'living')), submitting: false }"><div class="mp-container mp-contact-grid">
+    <div><p class="mp-eyebrow">{{ $ru ? 'Подбор недвижимости' : 'Your property shortlist' }}</p><h2>{{ $ru ? 'Недвижимость под ваш бюджет' : 'Find properties for your budget' }}</h2><p class="mp-body">{{ $ru ? 'Расскажите о цели покупки, бюджете и районе. Наша команда свяжется с вами, чтобы обсудить подходящие варианты.' : 'Tell us your goal, budget and preferred area. Our team will contact you to discuss suitable properties.' }}</p><div class="mp-contact-detail"><strong>Sanbada Real Estate</strong><span>Phuket, Thailand</span>@include('landing.partials.contact-phones')<a href="mailto:sanbadarus@gmail.com">sanbadarus@gmail.com</a></div></div>
+    <form class="mp-match-form" method="post" action="{{ route('lead.store', $locale) }}" @submit="submitting=true">
+        @csrf
+        <input type="hidden" name="lead_context" value="shortlist"><input type="hidden" name="purpose" :value="purpose">
+        @foreach(['utm_source','utm_medium','utm_campaign','utm_content','utm_term'] as $field)<input type="hidden" name="{{ $field }}" value="{{ old($field, is_string(request()->query($field)) ? mb_substr(request()->query($field), 0, 255) : '') }}">@endforeach
+        <div class="lead-honeypot" aria-hidden="true"><label>Company website<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="mp-form-heading"><h3>{{ $ru ? 'Подборка проектов' : 'Your property shortlist' }}</h3></div>
+        @if($errors->any() && old('lead_context') === 'shortlist')<div class="lead-form-errors" role="alert">@foreach($errors->all() as $message)<p>{{ $message }}</p>@endforeach</div>@endif
+        <span class="mp-form-label">{{ $ru ? 'Для чего вы ищете недвижимость?' : 'What are you looking for?' }}</span>
+        <div class="mp-purpose"><button type="button" @click="purpose='living'" :class="{ selected:purpose==='living' }" :aria-pressed="(purpose==='living').toString()">{{ $ru ? 'Для жизни' : 'For living' }}</button><button type="button" @click="purpose='investment'" :class="{ selected:purpose==='investment' }" :aria-pressed="(purpose==='investment').toString()">{{ $ru ? 'Для инвестиций' : 'For investment' }}</button></div>
+        <div class="mp-form-row">
+            <label>{{ $ru ? 'Ваш бюджет' : 'Your budget' }}<select name="budget_range" required><option value="">{{ $ru ? 'Выберите диапазон' : 'Select a range' }}</option>@foreach(['under5'=> $ru ? 'До 5 млн ฿' : 'Under 5M THB','5to10'=> $ru ? '5–10 млн ฿' : '5–10M THB','over10'=> $ru ? 'От 10 млн ฿' : '10M+ THB'] as $value=>$label)<option value="{{ $value }}" @selected(old('budget_range') === $value)>{{ $label }}</option>@endforeach</select></label>
+            <label>{{ $ru ? 'Район' : 'Preferred area' }}<select name="preferred_area"><option value="">{{ $ru ? 'Помогите выбрать' : 'Help me choose' }}</option>@foreach($shortlistAreas as $area)<option value="{{ $area }}" @selected(old('preferred_area') === $area)>{{ $area }}</option>@endforeach</select></label>
+        </div>
+        <label>{{ $ru ? 'Номер WhatsApp' : 'WhatsApp number' }}<span class="lead-phone-row"><select name="whatsapp_country" aria-label="{{ __('content.country_code') }}">@foreach(['+66','+7','+48','+1'] as $country)<option value="{{ $country }}" @selected(old('whatsapp_country', '+66') === $country)>{{ $country }}</option>@endforeach</select><input type="tel" name="whatsapp_phone" value="{{ old('whatsapp_phone') }}" placeholder="{{ __('modal_16') }}" autocomplete="tel-national" inputmode="tel" maxlength="30" required></span></label>
+        <div class="mp-form-row"><label>{{ $ru ? 'Имя' : 'Your name' }}<input name="name" value="{{ old('name') }}" maxlength="255" autocomplete="name"></label><label>Email<input type="email" name="email" value="{{ old('email') }}" maxlength="255" autocomplete="email"></label></div>
+        <label class="mp-consent"><input type="checkbox" name="consent" value="1" required @checked(old('consent'))><span>{{ __('modal_13') }} <a href="{{ route('privacy', $locale) }}" target="_blank" rel="noopener">{{ __('modal_14') }}</a></span></label>
+        <button type="submit" class="mp-button mp-primary btn-sweep" :disabled="submitting">{{ $ru ? 'Получить подборку' : 'Get my shortlist' }} @include('site.icon', ['name'=>'arrow-up-right'])</button>
+        <p class="mp-form-note">{{ $ru ? 'Мы свяжемся с вами по поводу вашего запроса.' : 'We will contact you about your property request.' }}</p>
+    </form>
+</div></section>
+@include('site.office')
+<footer class="mp-footer"><div class="mp-container"><strong>SANBADA</strong><span>{{ $ru ? 'Кондоминиумы и виллы на Пхукете' : 'Condominiums and villas in Phuket' }}</span><a href="#top">{{ $ru ? 'Наверх' : 'Back to top' }} @include('site.icon', ['name'=>'arrow-up'])</a></div></footer>

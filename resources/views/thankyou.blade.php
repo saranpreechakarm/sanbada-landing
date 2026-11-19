@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ __('thankyou_1') }} — Sanbada Real Estate</title>
+  <meta name="robots" content="noindex, nofollow">
   @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
@@ -70,7 +71,7 @@
           {{ __('thankyou_8') }}
         </a>
 
-        <a href="https://wa.me/66653489444"
+        <a href="https://wa.me/{{ ltrim(config('contact.people.0.phone'), '+') }}"
            class="px-6 py-3 rounded-xl border border-white/15 text-white/85 hover:border-[#2da9e0] hover:text-white transition">
           {{ __('thankyou_9') }}
         </a>
@@ -78,9 +79,7 @@
 
       <div class="mt-7 text-sm text-white/55">
         {{ __('thankyou_10') }}
-        <a class="text-[#2da9e0] hover:underline" href="tel:+66653489444">
-          +66 653 489 444
-        </a>
+        @include('landing.partials.contact-phones', ['phoneLinkClass' => 'text-[#2da9e0] hover:underline'])
       </div>
 
       <div class="mt-2 text-xs text-white/35">

@@ -1,0 +1,16 @@
+<section id="invest2" class="mp-section mp-investment-detail"><div class="mp-container">
+    <p class="mp-eyebrow">{{ $ru ? 'Инвестиционные возможности' : 'Investment opportunities' }}</p>
+    <h2>{{ $ru ? 'Инвестиции' : 'Investments' }}</h2>
+    <p class="mp-invest-lead">{{ $ru ? 'Недвижимость на Пхукете может приносить доход от аренды до 8% в год.' : 'Real estate investment in Phuket can generate rental returns of up to 8% per year.' }}</p>
+    <div class="mp-invest-detail-grid"><img src="{{ asset('assets/optimized/investment/1.webp') }}" alt="Investment Phuket" width="1000" height="700" loading="lazy" decoding="async"><div><p class="mp-body">{{ __('INVESTMENT_6') }}</p><a href="#contacts" class="mp-text-link">{{ $ru ? 'Обсудить инвестиционные проекты' : 'Discuss investment projects' }} @include('site.icon', ['name' => 'arrow-up-right'])</a></div></div>
+    <div class="mp-invest-stats">
+        <article><strong>{{ $ru ? 'до 8%' : 'Up to 8%' }}</strong><h3>{{ $ru ? 'Ожидаемая доходность от аренды' : 'Expected rental return' }}</h3><p>{{ $ru ? 'В год, в зависимости от проекта и условий аренды' : 'Per year, depending on the project and rental terms' }}</p></article>
+        <article><strong>15%</strong><h3>{{ $ru ? 'Прогнозируемый рост цены' : 'Projected price increase' }}</h3><p>{{ $ru ? 'До завершения строительства кондоминиума' : 'Before condominium completion' }}</p></article>
+        <article><strong>{{ $ru ? '3,3 млн ฿' : '3.3M THB' }}</strong><h3>{{ $ru ? 'Начальная стоимость' : 'Starting price' }}</h3><p>{{ $ru ? 'От 3 300 000 бат — уточните актуальные предложения' : 'From 3,300,000 THB — ask for current availability' }}</p></article>
+    </div>
+    <div class="mp-invest-explain">
+        <article><div><h3>{{ $ru ? 'Прирост стоимости недвижимости' : 'Property value appreciation' }}</h3><p>{{ $ru ? 'Потенциальный годовой рост 13–16% за счёт изменения стоимости недвижимости. Покупка на раннем этапе может дать возможность воспользоваться ростом цены.' : 'Projected annual growth of 13–16% from rising property values. Purchasing early may offer an opportunity to benefit from price appreciation.' }}</p></div><div class="mp-invest-number"><strong>13–16%</strong><span>{{ $ru ? 'в год · прогноз' : 'per year · projected' }}</span></div></article>
+        <article><div><h3>{{ $ru ? 'Управление недвижимостью и распределение дохода' : 'Property management and income sharing' }}</h3><p>{{ $ru ? 'Профессиональные управляющие компании занимаются управлением и обслуживанием недвижимости. По указанной модели 80% дохода распределяется владельцам; условия зависят от договора.' : 'Professional management companies provide property management and maintenance. In the stated income-sharing model, 80% is allocated to owners, subject to the management agreement.' }}</p></div><div class="mp-invest-number"><strong>80/20</strong><span>{{ $ru ? 'в пользу владельцев' : 'in favour of the owners' }}</span></div></article>
+    </div>
+    <p class="mp-invest-note">{{ $ru ? 'Показатели относятся к условиям конкретных проектов и являются оценочными. Запросите актуальные цены, расчёт арендного дохода и договор управления. Доходность не гарантирована.' : 'Figures are project-specific estimates. Request the current price list, rental assumptions and management terms. Returns are not guaranteed.' }}</p>
+</div></section>

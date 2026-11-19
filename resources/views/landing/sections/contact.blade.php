@@ -28,9 +28,7 @@
               <div class="text-sm font-semibold tracking-widest uppercase text-white/80">
                 {{ __('phone') }}
               </div>
-              <a href="tel:+66653489444" class="mt-2 block text-white/70 hover:text-[#2da9e0]">
-                +66 (0) 653 489 444
-              </a>
+              <div class="mt-2">@include('landing.partials.contact-phones', ['phoneLinkClass' => 'text-white/70 hover:text-[#2da9e0]'])</div>
             </div>
 
             {{-- Email --}}
@@ -75,7 +73,7 @@
                 </a>
 
                 {{-- WhatsApp --}}
-                <a href="https://wa.me/qr/6XR54RUL5U25N1" target="_blank"
+                <a href="https://wa.me/{{ ltrim(config('contact.people.0.phone'), '+') }}" target="_blank"
                   class="h-10 w-10 flex items-center justify-center rounded-md bg-white/10 hover:bg-[#2da9e0] transition">
                   <svg class="h-5 w-5" viewBox="0 0 32 32" fill="currentColor">
                     <path d="M16.02 3C9.39 3 4 8.38 4 15.01c0 2.64.86 5.18 2.35 7.25L4 29l6.98-2.28a11.94 11.94 0 005.04 1.11h.01c6.62 0 12-5.38 12-12.01C28.03 8.38 22.64 3 16.02 3z" />

@@ -1,0 +1,13 @@
+Options -Indexes
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "(?i)^(?:\.env(?:\..*)?|composer\.(?:json|lock)|package(?:-lock)?\.json|artisan|phpunit\.xml|project_info\.php)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+    RewriteRule ^(?:app|bootstrap|config|database|resources|routes|storage|tests|vendor)(?:/|$) - [F,L,NC]
+</IfModule>

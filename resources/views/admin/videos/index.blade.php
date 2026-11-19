@@ -1,0 +1,6 @@
+@extends('admin.layout')
+@section('title', 'วิดีโอ')
+@section('content')
+<div class="page-heading"><div><div class="eyebrow">VIDEO STORIES</div><h1>จัดการวิดีโอ</h1><p class="muted">พาลูกค้าชมโปรเจกต์และบรรยากาศจริงผ่าน YouTube หรือ Vimeo</p></div><a class="button primary" href="{{ route('admin.videos.create') }}">＋ เพิ่มวิดีโอ</a></div>
+<div class="panel table-wrap"><table><thead><tr><th>ชื่อวิดีโอ</th><th>โปรเจกต์</th><th>สถานะ</th><th>ลำดับ</th><th>จัดการ</th></tr></thead><tbody>@forelse($videos as $video)<tr><td><strong>{{ $video->title['en'] }}</strong><small>{{ $video->title['ru'] }}</small></td><td>{{ $video->project?->title ?? 'วิดีโอทั่วไป' }}</td><td><span class="pill {{ $video->is_published ? 'published' : '' }}">{{ $video->is_published ? 'เผยแพร่' : 'ฉบับร่าง' }}</span></td><td>{{ $video->sort_order }}</td><td><a class="button small" href="{{ route('admin.videos.edit', $video) }}">แก้ไข ↗</a></td></tr>@empty<tr><td colspan="5" class="empty"><div class="empty-icon">▷</div><h2>เริ่มเล่าเรื่องด้วยวิดีโอ</h2><p>เพิ่มลิงก์พาชมโครงการหรือแนะนำการลงทุนในภูเก็ต</p><a class="button primary" href="{{ route('admin.videos.create') }}">เพิ่มวิดีโอแรก →</a></td></tr>@endforelse</tbody></table></div><div class="pagination">{{ $videos->links() }}</div>
+@endsection

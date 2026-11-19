@@ -30,6 +30,17 @@ return [
 
     'disks' => [
 
+        'content_images' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/content'),
+            'throw' => true,
+        ],
+        'content_documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/content'),
+            'throw' => true,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
