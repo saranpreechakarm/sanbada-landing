@@ -22,4 +22,4 @@
 <meta name="twitter:title" content="{{ $seo['title'] }}">
 <meta name="twitter:description" content="{{ $seo['description'] }}">
 <meta name="twitter:image" content="{{ $seo['image'] }}">
-<script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@graph' => $seo['schema']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) !!}</script>
+<script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@'.'graph' => $seo['schema']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) !!}</script>

@@ -1,0 +1,1 @@
+<button type="button" class="c-quiz-launcher" onclick="window.cOpenQuiz(this)" aria-label="{{ $ru ? 'Подобрать недвижимость с Marquiz' : 'Find my property with Marquiz' }}">@include('site-c.icon',['name'=>'message-circle'])<span>{{ $ru ? 'Помочь с выбором?' : 'Need a little guidance?' }}</span></button>
