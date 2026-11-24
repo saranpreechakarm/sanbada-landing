@@ -298,6 +298,7 @@
     @include('site.promo')
     @include('site.ownership-transfer')
     @include('site.team')
+    @include('site-c.sales-gallery')
     @include('site.services')
     @include('site.submanee')
     @include('site.investment')

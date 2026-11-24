@@ -73,7 +73,7 @@
                 </a>
 
                 {{-- WhatsApp --}}
-                <a href="https://wa.me/{{ ltrim(config('contact.people.0.phone'), '+') }}" target="_blank"
+                <a href="{{ config('contact.whatsapp_url') }}" target="_blank" rel="noopener noreferrer"
                   class="h-10 w-10 flex items-center justify-center rounded-md bg-white/10 hover:bg-[#2da9e0] transition">
                   <svg class="h-5 w-5" viewBox="0 0 32 32" fill="currentColor">
                     <path d="M16.02 3C9.39 3 4 8.38 4 15.01c0 2.64.86 5.18 2.35 7.25L4 29l6.98-2.28a11.94 11.94 0 005.04 1.11h.01c6.62 0 12-5.38 12-12.01C28.03 8.38 22.64 3 16.02 3z" />

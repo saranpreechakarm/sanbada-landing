@@ -71,7 +71,7 @@
           {{ __('thankyou_8') }}
         </a>
 
-        <a href="https://wa.me/{{ ltrim(config('contact.people.0.phone'), '+') }}"
+        <a href="{{ config('contact.whatsapp_url') }}" target="_blank" rel="noopener noreferrer"
            class="px-6 py-3 rounded-xl border border-white/15 text-white/85 hover:border-[#2da9e0] hover:text-white transition">
           {{ __('thankyou_9') }}
         </a>

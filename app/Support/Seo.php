@@ -101,7 +101,7 @@ class Seo
                 '@type' => 'RealEstateAgent', '@id' => $this->url().'#agency',
                 'name' => config('seo.name'), 'url' => $this->url(),
                 'image' => $seo['image'], 'telephone' => config('contact.people.0.phone'), 'email' => config('seo.email'),
-                'contactPoint' => array_map(fn ($person) => ['@type' => 'ContactPoint', 'name' => $person['name'], 'telephone' => $person['phone'], 'contactType' => 'sales'], config('contact.people')),
+                'contactPoint' => array_map(fn ($person) => array_merge(['@type' => 'ContactPoint', 'name' => $person['name'], 'telephone' => $person['phone'], 'contactType' => 'sales'], isset($person['language']) ? ['availableLanguage' => [$person['language']]] : []), config('contact.people')),
                 'address' => config('seo.address'), 'sameAs' => config('seo.same_as'), 'areaServed' => 'Phuket, Thailand',
             ];
         }

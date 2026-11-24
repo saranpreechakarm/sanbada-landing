@@ -15,7 +15,7 @@
     return promise;
   }
 
-  window.cGallery = (slides, autoplay = false) => ({
+  window.cGallery = (slides, autoplay = false, reveal = true) => ({
     images: slides.map(s => typeof s === 'string' ? s : matchMedia('(max-width: 767px)').matches ? s.small : s.large),
     fullImages: slides.map(s => typeof s === 'string' ? s : s.large),
     slots: ['', ''], frontSlot: 0, index: 0, startX: 0, startY: 0, inView: false,
@@ -23,7 +23,7 @@
     elapsed: 0, lastTick: 0, interval: null, observer: null, revealObserver: null, sequence: 0, isChanging: false, root: null,
     init() {
       this.root=this.$root; this.slots[0] = this.images[0] || '';
-      if(autoplay&&!reduced()){
+      if(autoplay&&reveal&&!reduced()){
         this.root.classList.add('c-reveal-wait');
         this.revealObserver=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){this.root.classList.remove('c-reveal-wait');this.root.classList.add('c-reveal-done');this.revealObserver.disconnect();}},{threshold:.15});
         this.revealObserver.observe(this.root);
@@ -72,6 +72,31 @@
       if(this.elapsed>=6500){this.elapsed=0;this.next();}
     },
     destroy(){this.observer?.disconnect();this.revealObserver?.disconnect();clearInterval(this.interval);++this.sequence;}
+  });
+
+  // One responsive MP4 is requested, never both. Muted autoplay follows browser policy.
+  window.cHeroVideo=()=>({
+    video:null,playing:false,muted:true,loading:false,failed:false,pausedByUser:false,
+    inView:false,attached:false,environmentPause:false,observer:null,modalObserver:null,
+    init(){
+      this.video=this.$refs.film;this.video.muted=true;this.pausedByUser=reduced()||!!navigator.connection?.saveData;
+      this.observer=new IntersectionObserver(entries=>{this.inView=entries[0].isIntersecting;this.sync();},{threshold:.12});this.observer.observe(this.video);
+      this.modalObserver=new MutationObserver(()=>this.sync());this.modalObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+    },
+    attach(){if(this.attached)return;const connection=navigator.connection;const light=matchMedia('(max-width:767px)').matches||connection?.saveData||['slow-2g','2g','3g'].includes(connection?.effectiveType)||(connection?.downlink>0&&connection.downlink<1.5);this.video.src=light?this.video.dataset.mobileSrc:this.video.dataset.desktopSrc;this.attached=true;this.loading=true;},
+    async sync(){
+      if(!this.video)return;const fullscreen=document.fullscreenElement===this.video;
+      const shouldPlay=(this.inView||fullscreen)&&!document.hidden&&!document.documentElement.classList.contains('site-dialog-open')&&!this.pausedByUser&&!this.failed;
+      this.environmentPause=!shouldPlay;if(!shouldPlay){this.video.pause();return;}
+      this.attach();try{await this.video.play();}catch(_){this.playing=false;this.loading=false;}
+    },
+    onPlay(){this.playing=true;this.pausedByUser=false;},
+    onPause(){this.playing=false;if(!this.environmentPause)this.pausedByUser=true;},
+    resume(){this.pausedByUser=false;this.failed=false;this.sync();},
+    holdForDialog(){this.environmentPause=true;this.video?.pause();},
+    toggleSound(){this.video.muted=!this.video.muted;this.muted=this.video.muted;this.resume();},
+    watch(){this.video.scrollIntoView({behavior:reduced()?'instant':'smooth',block:'center'});this.inView=true;this.video.muted=false;this.muted=false;this.resume();if(this.video.requestFullscreen)this.video.requestFullscreen().catch(()=>{});else this.video.webkitEnterFullscreen?.();},
+    destroy(){this.observer?.disconnect();this.modalObserver?.disconnect();this.environmentPause=true;this.video?.pause();}
   });
 
   window.cCatalog = inventory => ({

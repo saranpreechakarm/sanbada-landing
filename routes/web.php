@@ -11,6 +11,10 @@ require __DIR__.'/seo.php';
 // เข้าเว็บแล้วไป /ru อัตโนมัติ
 Route::redirect('/', '/ru');
 
+// Range-aware delivery also supports seeking on the local PHP development server.
+Route::get('/media/sanbada/{quality}.mp4', \App\Http\Controllers\HeroVideoController::class)
+    ->where('quality', '480p|720p')->name('hero.video');
+
 // กลุ่ม route ที่มี locale prefix
 Route::group([
     'prefix' => '{locale}',

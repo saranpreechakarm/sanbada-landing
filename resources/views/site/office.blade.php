@@ -5,7 +5,7 @@
         <h3>Email</h3><a href="mailto:sanbadarus@gmail.com">sanbadarus@gmail.com</a>
         <h3>{{ $ru ? 'Социальные сети' : 'Social media' }}</h3>
         <div class="mp-social-links">
-            @foreach([['telegram','Telegram','https://t.me/sanbadarus'],['facebook','Facebook','https://www.facebook.com/profile.php?id=61579230497512'],['instagram','Instagram','https://www.instagram.com/sanbadarealestate_rus/'],['whatsapp','WhatsApp','https://wa.me/'.ltrim(config('contact.people.0.phone'), '+')]] as [$type,$label,$href])
+            @foreach([['telegram','Telegram','https://t.me/sanbadarus'],['facebook','Facebook','https://www.facebook.com/profile.php?id=61579230497512'],['instagram','Instagram','https://www.instagram.com/sanbadarealestate_rus/'],['whatsapp','WhatsApp',config('contact.whatsapp_url')]] as [$type,$label,$href])
                 <a href="{{ $href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $label }} — Sanbada">@include('site.social-icon', ['type' => $type])<span>{{ $label }}</span></a>
             @endforeach
         </div>
