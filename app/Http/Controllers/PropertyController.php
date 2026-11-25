@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Support\Seo;
+use App\Support\ProjectImages;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    public function index(Request $request, Seo $seo)
+    public function index(Request $request, Seo $seo, ProjectImages $images)
     {
         $category = match ($request->route()->getName()) { 'properties.condos' => 'condo', 'properties.villas' => 'villa', default => null };
         $projects = Project::where('is_published', true)->when($category, fn ($q) => $q->where('category', $category))->orderByDesc('is_featured')->orderBy('sort_order')->orderBy('id')->paginate(12);
@@ -24,10 +25,10 @@ class PropertyController extends Controller
         }
         abort_if($projects->currentPage() > $projects->lastPage(), 404);
         $metadata['schema'][] = ['@type' => 'ItemList', 'itemListElement' => $projects->map(fn ($project, $index) => ['@type' => 'ListItem', 'position' => $projects->firstItem() + $index, 'url' => $seo->url($seo->projectPath($project)), 'name' => $project->title])->all()];
-        return view('properties.index', ['projects' => $projects, 'category' => $category, 'seo' => $metadata, 'locale' => app()->getLocale(), 'ru' => app()->getLocale() === 'ru']);
+        return view('properties.index', ['projects' => $projects, 'previewSlides' => fn ($project) => $images->slides($project), 'category' => $category, 'seo' => $metadata, 'locale' => app()->getLocale(), 'ru' => app()->getLocale() === 'ru']);
     }
 
-    public function show(string $locale, Project $project, string $slug, Seo $seo)
+    public function show(string $locale, Project $project, string $slug, Seo $seo, ProjectImages $images)
     {
         abort_unless($project->is_published, 404);
         if ($slug !== $seo->slug($project)) {
@@ -35,6 +36,6 @@ class PropertyController extends Controller
         }
         $metadata = $seo->project($project);
         $metadata['schema'][] = $seo->breadcrumbs([app()->getLocale() === 'ru' ? 'Главная' : 'Home' => '/'.$locale, app()->getLocale() === 'ru' ? 'Проекты' : 'Projects' => '/'.$locale.'/projects', $project->title => $seo->projectPath($project)]);
-        return view('properties.show', ['project' => $project, 'seo' => $metadata, 'locale' => $locale, 'ru' => $locale === 'ru']);
+        return view('properties.show', ['project' => $project, 'gallery' => $images->slides($project), 'seo' => $metadata, 'locale' => $locale, 'ru' => $locale === 'ru']);
     }
 }

@@ -46,8 +46,7 @@
                                         <p>{{ trim($paragraph) }}</p>
                                     @endforeach
                                 </div>
-                                <button type="button" class="catalog-cta btn-lux btn-sweep"
-                                    @click="$dispatch('open-lead', { projectId: @js($project->id), project: @js($project->title), pdf: @js($project->pdf_path) })">{{ $ru ? 'Подробнее' : 'More details' }}</button>
+                                <a class="catalog-cta btn-lux btn-sweep" href="{{ app(\App\Support\Seo::class)->projectPath($project) }}">{{ $ru ? 'Подробнее' : 'More details' }}</a>
                             </div>
                             <div class="catalog-gallery"
                                 x-data="cGallery(@js($galleryImages))" @pointerenter="warmNext()"

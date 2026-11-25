@@ -21,5 +21,4 @@
         <p class="mp-form-note">{{ $ru ? 'Мы свяжемся с вами по поводу вашего запроса.' : 'We will contact you about your property request.' }}</p>
     </form>
 </div></section>
-@include('site.office')
-<footer class="mp-footer"><div class="mp-container"><strong>SANBADA</strong><span>{{ $ru ? 'Кондоминиумы и виллы на Пхукете' : 'Condominiums and villas in Phuket' }}</span><a href="#top">{{ $ru ? 'Наверх' : 'Back to top' }} @include('site-c.icon', ['name'=>'arrow-up'])</a></div></footer>
+@include('site.footer')
