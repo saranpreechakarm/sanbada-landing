@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'whatsapp_url' => 'https://wa.me/message/D2ABBPD6U2QBN1',
+    'whatsapp_url' => 'https://wa.me/66653489444',
     // Display follows the supplied wording; dial links use international numbers.
     'people' => [
         ['name' => 'Amirov', 'display' => '+66 (0) 082-123-5262', 'phone' => '+66821235262', 'language' => 'ru'],
